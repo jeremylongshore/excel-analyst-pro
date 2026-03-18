@@ -1,0 +1,45 @@
+{
+  "skill_name": "excel-dcf-modeler",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a DCF model for Apple with $385B revenue, 15% growth tapering to 5%, 30% EBITDA margin, and 10% WACC",
+      "expected_output": "4-sheet Excel workbook with Assumptions, FCF Projections, Valuation, and Sensitivity Analysis",
+      "files": [],
+      "expectations": [
+        "Creates an .xlsx file with exactly 4 sheets",
+        "Assumptions sheet contains all user-provided inputs color-coded blue",
+        "FCF Projections sheet has 5 years of projections with formulas linking to Assumptions",
+        "Valuation sheet calculates enterprise value using Gordon Growth Model for terminal value",
+        "Sensitivity table varies WACC and terminal growth rate",
+        "Reports enterprise value and terminal value as % of EV"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a DCF but I only have revenue of $50M. Use defaults for everything else.",
+      "expected_output": "Complete DCF model using industry-default assumptions documented in the Assumptions sheet",
+      "files": [],
+      "expectations": [
+        "Uses default WACC of 10%",
+        "Uses default terminal growth of 2.5%",
+        "All defaults are documented in the Assumptions sheet",
+        "Model is fully functional with linked formulas",
+        "Returns enterprise value and flags any concerning assumptions"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a DCF for a startup with 40% growth, 5% EBITDA margin, 15% WACC, and 4% terminal growth",
+      "expected_output": "Validation warning that terminal growth is close to WACC, model built with appropriate warnings",
+      "files": [],
+      "expectations": [
+        "Validates that terminal growth (4%) is less than WACC (15%) before proceeding",
+        "Flags the high growth rate assumption as aggressive",
+        "Flags low EBITDA margin as a concern for FCF generation",
+        "Sensitivity table helps visualize impact of varying WACC and growth",
+        "Commentary notes the startup risk profile"
+      ]
+    }
+  ]
+}

@@ -2,21 +2,39 @@
 name: excel-lbo-modeler
 description: |
   Creates leveraged buyout (LBO) models in Excel with sources & uses, debt schedules,
-  cash flow waterfalls, and IRR calculations. Activates when asked to create an LBO model,
-  build a buyout model, calculate PE returns, or analyze a leveraged acquisition.
-  Targets private equity and investment banking workflows.
+  cash flow waterfalls, and IRR calculations. Targets private equity and investment
+  banking workflows.
+  Use when asked to create an LBO model, build a buyout model, calculate PE returns,
+  or analyze a leveraged acquisition.
+  Trigger with "create an LBO model", "build a buyout model", "PE returns analysis",
+  or "leveraged acquisition model".
+  Make sure to use whenever the user needs private equity deal modeling in Excel.
 allowed-tools: "Read,Write,Edit,Glob,Grep,Bash(npx:*),AskUserQuestion"
 model: inherit
-metadata:
-  author: ClaudeCodePlugins <plugins@claudecodeplugins.io>
-  version: 2.0.0
-  license: MIT
-compatibility: "Node.js 18+, @negokaz/excel-mcp-server"
+version: "2.0.0"
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+license: "Proprietary"
+compatible-with: claude-code
+tags: [lbo, private-equity, financial-modeling, excel, investment-banking]
 ---
 
 # Excel LBO Modeler
 
-Creates comprehensive 6-sheet LBO models for private equity transactions following industry-standard practices.
+## Table of Contents
+- [Overview](#overview) — [Prerequisites](#prerequisites) — [Instructions](#instructions) — [Output](#output) — [Examples](#examples) — [Error Handling](#error-handling) — [Resources](#resources)
+
+## Overview
+
+Generates comprehensive 6-sheet LBO models for private equity transactions following
+industry-standard practices. Automates sources & uses, debt schedules, operating
+projections, returns analysis, and covenant tracking so PE associates can produce
+deal models from natural language inputs instead of building from scratch.
+
+## Prerequisites
+
+- Node.js 18+
+- `@negokaz/excel-mcp-server` MCP server configured
+- Claude Code 1.0+
 
 ## Instructions
 
@@ -64,36 +82,17 @@ Apply typical LBO debt structure:
 
 Use the Excel MCP server to create:
 
-**Sheet 1 - Transaction Summary:**
-Deal terms, sources & uses overview, returns summary (IRR, MoM, hold period).
+**Sheet 1 - Transaction Summary:** Deal terms, sources & uses overview, returns summary (IRR, MoM, hold period).
 
-**Sheet 2 - Sources & Uses:**
-```
-Uses: Purchase Equity Value + Net Debt = Enterprise Value + Transaction Fees + Financing Fees = Total Uses
-Sources: Revolver (0 at close) + Term Loan A + Term Loan B + Sub Debt + Sponsor Equity = Total Sources
-```
+**Sheet 2 - Sources & Uses:** Purchase equity value, net debt, enterprise value, transaction fees, financing fees. Sources: debt tranches + sponsor equity.
 
-**Sheet 3 - Operating Model (5 Years):**
-```
-Revenue x Growth % → Projected Revenue
-Revenue x EBITDA Margin → EBITDA
-EBITDA - CapEx - Change in NWC - Cash Taxes = Cash Flow Available for Debt Service
-```
+**Sheet 3 - Operating Model (5 Years):** Revenue projections, EBITDA, cash flow available for debt service.
 
-**Sheet 4 - Debt Schedule:**
-For each tranche: Beginning Balance, Mandatory Amortization, Excess Cash Flow Sweep, Interest Expense, Ending Balance. Waterfall: Revolver first, then TLA, then TLB.
+**Sheet 4 - Debt Schedule:** For each tranche: beginning balance, mandatory amortization, excess cash flow sweep, interest expense, ending balance. Waterfall: Revolver first, then TLA, then TLB.
 
-**Sheet 5 - Returns Analysis:**
-```
-Exit EBITDA x Exit Multiple = Exit Enterprise Value
-Exit EV - Net Debt at Exit = Exit Equity Value
-MoM = Exit Equity / Initial Equity
-IRR = (MoM)^(1/Years) - 1
-```
-Include sensitivity tables: Exit Multiple vs Hold Period → IRR, Exit vs Entry Multiple → IRR.
+**Sheet 5 - Returns Analysis:** Exit EV, exit equity value, MoM, IRR. Sensitivity tables: Exit Multiple vs Hold Period, Exit vs Entry Multiple.
 
-**Sheet 6 - Debt Covenants:**
-Total Debt/EBITDA (≤6.0x), Senior Debt/EBITDA (≤4.0x), EBITDA/Interest (≥2.0x), (EBITDA-CapEx)/Debt Service (≥1.2x).
+**Sheet 6 - Debt Covenants:** Total Debt/EBITDA (<=6.0x), Senior Debt/EBITDA (<=4.0x), EBITDA/Interest (>=2.0x), (EBITDA-CapEx)/Debt Service (>=1.2x).
 
 All formulas link to Assumptions. No hard-coded values.
 
@@ -108,13 +107,13 @@ All formulas link to Assumptions. No hard-coded values.
 
 ### Step 6: Return Results
 
-Report to the user:
-- Exit Equity Value and Money-on-Money multiple
-- IRR (base case)
-- Leverage at entry and exit
-- Key sensitivity scenarios (10x exit, 14x exit)
-- Covenant compliance summary
-- Flag if leverage >7x or negative cash flow in any year
+Report exit equity value, MoM, IRR (base case), leverage at entry and exit, key sensitivity scenarios, covenant compliance summary. Flag if leverage >7x or negative cash flow in any year.
+
+## Output
+
+- `.xlsx` file with 6 sheets: Transaction Summary, Sources & Uses, Operating Model, Debt Schedule, Returns Analysis, Debt Covenants
+- Summary text with IRR, MoM, leverage metrics, and covenant status
+- Warnings for aggressive assumptions (e.g., leverage >7x, exit > entry multiple)
 
 ## Examples
 
@@ -127,7 +126,7 @@ Results:
 - Entry EV: $600M, Equity Check: ~$265M
 - Exit Equity: $1,124M (5yr hold, 12x exit)
 - MoM: 4.2x, IRR: 34.2%
-- Deleveraging: 7.0x → 0.9x
+- Deleveraging: 7.0x -> 0.9x
 
 Saved to: Software_LBO_Model.xlsx
 ```
@@ -156,8 +155,7 @@ All assumptions documented in Transaction Summary for easy adjustment.
 - If user provides no company name, use "Target Co" as placeholder
 - If user wants dividend recap, add Year 3 refinancing scenario
 - If user wants multiple scenarios, create Base/Bull/Bear columns
-- If revenue is in different currencies, note currency throughout
 
 ## Resources
 
-- {baseDir}/references/REFERENCE.md - LBO best practices, debt structures by industry
+- ${CLAUDE_SKILL_DIR}/references/REFERENCE.md - LBO best practices, debt structures by industry

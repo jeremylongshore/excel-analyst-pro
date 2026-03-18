@@ -1,0 +1,45 @@
+{
+  "skill_name": "excel-variance-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Analyze Q1 budget vs actual. Revenue budget was $3M, actual was $2.85M. OpEx budget was $750K, actual was $840K.",
+      "expected_output": "3-sheet variance report with flagging, commentary, and executive summary",
+      "files": [],
+      "expectations": [
+        "Creates an .xlsx file with 3 sheets: Variance Summary, Executive Summary, Trend Analysis",
+        "Calculates revenue variance as -5.0% (unfavorable)",
+        "Calculates OpEx variance as +12.0% (unfavorable for expense)",
+        "Flags OpEx as Critical (>10% over budget)",
+        "Generates automated commentary with possible drivers",
+        "Executive Summary highlights top variances and recommends actions"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Compare our March actuals to budget. All line items are within 3% of budget.",
+      "expected_output": "Clean variance report showing all items On Track with suggestion to lower thresholds",
+      "files": [],
+      "expectations": [
+        "All line items flagged as On Track (green)",
+        "Reports clean bill of health",
+        "Suggests lowering variance thresholds for tighter monitoring",
+        "Still generates complete 3-sheet report for documentation",
+        "Formatting follows standard conventions"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Why is marketing over budget? Break down by subcategory.",
+      "expected_output": "Drill-down analysis of marketing subcategories with variance amounts and primary driver identification",
+      "files": [],
+      "expectations": [
+        "Breaks marketing into subcategories (Digital Ads, Events, Agencies, etc.)",
+        "Shows variance amount and percentage for each subcategory",
+        "Identifies the primary driver of the overall marketing variance",
+        "Provides specific recommendations for each over-budget subcategory",
+        "Offers follow-up analysis options"
+      ]
+    }
+  ]
+}

@@ -2,21 +2,39 @@
 name: excel-dcf-modeler
 description: |
   Builds discounted cash flow (DCF) valuation models in Excel with free cash flow
-  projections, WACC calculations, and sensitivity analysis. Activates when asked to
-  create a DCF model, calculate enterprise value, value a company, or build a
-  valuation model. Targets investment banking and corporate finance workflows.
+  projections, WACC calculations, and sensitivity analysis. Targets investment banking
+  and corporate finance workflows.
+  Use when asked to create a DCF model, calculate enterprise value, value a company,
+  or build a valuation model.
+  Trigger with "create a DCF model", "build a valuation", "calculate enterprise value",
+  or "value this company".
+  Make sure to use whenever the user needs company valuation or DCF analysis in Excel.
 allowed-tools: "Read,Write,Edit,Glob,Grep,Bash(npx:*),AskUserQuestion"
 model: inherit
-metadata:
-  author: ClaudeCodePlugins <plugins@claudecodeplugins.io>
-  version: 2.0.0
-  license: MIT
-compatibility: "Node.js 18+, @negokaz/excel-mcp-server"
+version: "2.0.0"
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+license: "Proprietary"
+compatible-with: claude-code
+tags: [dcf, valuation, financial-modeling, excel, investment-banking]
 ---
 
 # Excel DCF Modeler
 
-Creates professional 4-sheet DCF valuation models following investment banking standards.
+## Table of Contents
+- [Overview](#overview) — [Prerequisites](#prerequisites) — [Instructions](#instructions) — [Output](#output) — [Examples](#examples) — [Error Handling](#error-handling) — [Resources](#resources)
+
+## Overview
+
+Generates professional 4-sheet DCF valuation models following investment banking standards.
+Automates free cash flow projections, terminal value calculations, and sensitivity analysis
+so analysts can produce IB-grade valuations from natural language inputs instead of building
+Excel models from scratch.
+
+## Prerequisites
+
+- Node.js 18+
+- `@negokaz/excel-mcp-server` MCP server configured
+- Claude Code 1.0+
 
 ## Instructions
 
@@ -59,34 +77,10 @@ Use the Excel MCP server to create:
 Company info, revenue growth rates, profitability metrics, working capital, CapEx, tax rate, terminal growth, WACC. Color-code: blue for inputs, black for formulas.
 
 **Sheet 2 - FCF Projections (5 years):**
-```
-Revenue
-  x EBITDA Margin
-= EBITDA
-  - D&A
-= EBIT
-  x (1 - Tax Rate)
-= NOPAT
-  + D&A (add back)
-  - CapEx
-  - Change in NWC
-= Unlevered Free Cash Flow
-```
-
-All formulas link to Assumptions sheet. No hard-coded values.
+Revenue -> EBITDA -> EBIT -> NOPAT -> add back D&A -> subtract CapEx -> subtract Change in NWC -> Unlevered Free Cash Flow. All formulas link to Assumptions sheet. No hard-coded values.
 
 **Sheet 3 - Valuation:**
-```
-PV of each year's FCF = FCF / (1 + WACC)^n
-Sum of PV(FCF) for Years 1-5
-
-Terminal Value = FCF_Y5 x (1 + g) / (WACC - g)
-PV of Terminal Value = TV / (1 + WACC)^5
-
-Enterprise Value = Sum PV(FCF) + PV(Terminal Value)
-Equity Value = EV - Net Debt + Non-Operating Assets
-Per Share = Equity Value / Shares Outstanding
-```
+PV of each year's FCF, terminal value via Gordon Growth Model, PV of terminal value, enterprise value, equity value, per-share value.
 
 **Sheet 4 - Sensitivity Analysis:**
 Two-way table: WACC (rows, +/-2% from base) vs Terminal Growth (columns, 1.5%-3.5%). Output: Enterprise Value at each combination. Apply conditional formatting (green=high, red=low).
@@ -101,13 +95,13 @@ Two-way table: WACC (rows, +/-2% from base) vs Terminal Growth (columns, 1.5%-3.
 
 ### Step 5: Return Results
 
-Report to the user:
-- Enterprise Value
-- Equity Value (if net debt provided)
-- Per-share value (if shares provided)
-- Terminal value as % of EV (flag if >80%)
-- Key assumptions used
-- Brief commentary on reasonableness vs industry
+Report enterprise value, equity value, per-share value, terminal value as % of EV (flag if >80%), key assumptions used, and brief commentary on reasonableness vs industry.
+
+## Output
+
+- `.xlsx` file with 4 sheets: Assumptions, FCF Projections, Valuation, Sensitivity Analysis
+- Summary text with enterprise value, equity value, and key metrics
+- Warnings for any concerning assumptions (e.g., terminal value >80% of EV)
 
 ## Examples
 
@@ -152,4 +146,4 @@ All defaults documented in Assumptions sheet for easy adjustment.
 
 ## Resources
 
-- {baseDir}/references/REFERENCE.md - DCF best practices, industry assumptions, common mistakes
+- ${CLAUDE_SKILL_DIR}/references/REFERENCE.md - DCF best practices, industry assumptions, common mistakes

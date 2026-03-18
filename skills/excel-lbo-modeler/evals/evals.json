@@ -1,0 +1,45 @@
+{
+  "skill_name": "excel-lbo-modeler",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build an LBO model for a $50M EBITDA software company at 12x entry multiple with 5-year hold and 12x exit",
+      "expected_output": "6-sheet Excel workbook with complete LBO analysis showing IRR, MoM, and debt paydown",
+      "files": [],
+      "expectations": [
+        "Creates an .xlsx file with exactly 6 sheets",
+        "Sources & Uses balances (total sources = total uses)",
+        "Debt schedule shows amortization and cash sweep for each tranche",
+        "Returns analysis calculates IRR and MoM correctly",
+        "Covenant sheet tracks leverage ratios across all years",
+        "Reports IRR, MoM, and leverage at entry and exit"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "LBO model but I only know EBITDA is $30M. Use PE industry defaults.",
+      "expected_output": "Complete LBO model using standard PE assumptions with all defaults documented",
+      "files": [],
+      "expectations": [
+        "Applies default entry multiple in 8-12x range",
+        "Structures debt at reasonable leverage (4-6x EBITDA)",
+        "Equity check is 30-40% of purchase price",
+        "All defaults documented in Transaction Summary",
+        "Returns analysis provides base case IRR"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create an LBO with 8x leverage, $100M EBITDA, 15x entry multiple, and 10x exit multiple",
+      "expected_output": "Model built with warnings about high leverage and exit multiple below entry",
+      "files": [],
+      "expectations": [
+        "Warns that 8x leverage exceeds typical 7x threshold",
+        "Flags exit multiple (10x) below entry multiple (15x) as a risk",
+        "Covenant sheet shows potential breaches from high leverage",
+        "Still builds the model as requested with clear warnings",
+        "Sensitivity table shows IRR under various exit scenarios"
+      ]
+    }
+  ]
+}
