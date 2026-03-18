@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Professional financial modeling toolkit for Claude Code with auto-invoked Skills and Excel MCP integration. Build DCF models, LBO analysis, variance reports, and pivot tables using natural language.",
   "author": {
-    "name": "ClaudeCodePlugins",
-    "email": "plugins@claudecodeplugins.io",
-    "url": "https://claudecodeplugins.io"
+    "name": "Intent Solutions",
+    "email": "jeremy@intentsolutions.io",
+    "url": "https://intentsolutions.io"
   },
-  "license": "MIT",
-  "repository": "https://github.com/jeremylongshore/claude-code-plugins/tree/main/plugins/excel-analyst-pro",
+  "license": "Proprietary",
+  "repository": "https://github.com/jeremylongshore/excel-analyst-pro",
   "keywords": [
     "excel",
     "financial-modeling",
@@ -56,6 +56,5 @@
     "Local Excel file processing (no cloud upload)",
     "Investment banking-grade templates",
     "Integration with @negokaz/excel-mcp-server"
-  ],
-  "installation": "/plugin install excel-analyst-pro@claude-code-plugins"
+  ]
 }

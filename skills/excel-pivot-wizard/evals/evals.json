@@ -1,0 +1,45 @@
+{
+  "skill_name": "excel-pivot-wizard",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Show total sales by region from the sales data file",
+      "expected_output": "Pivot table with regions as rows, sum of sales as values, sorted largest to smallest with a bar chart",
+      "files": [],
+      "expectations": [
+        "Reads the source Excel file to identify columns and data types",
+        "Creates a pivot table on a new sheet with Region as row field",
+        "Aggregates sales using SUM function",
+        "Sorts regions from largest to smallest sales",
+        "Adds a column or bar chart visualization",
+        "Reports top insights including which region leads and % of total"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a cross-tab of sales by region and product category",
+      "expected_output": "Two-dimensional pivot table with regions as rows, categories as columns, sum of sales as values",
+      "files": [],
+      "expectations": [
+        "Creates a cross-tabulation with Region as rows and Category as columns",
+        "Values are Sum of Sales at each intersection",
+        "Includes row totals, column totals, and grand total",
+        "Applies conditional formatting for heatmap effect",
+        "Identifies the highest and lowest cells in the grid"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Show me the top 10 products by revenue with a Pareto chart",
+      "expected_output": "Ranked table of top 10 products with revenue, cumulative %, and Pareto visualization",
+      "files": [],
+      "expectations": [
+        "Filters to top 10 products by revenue",
+        "Includes revenue amount, order count, and % of total for each product",
+        "Calculates cumulative percentage for Pareto analysis",
+        "Creates a combo chart (bar + cumulative line)",
+        "Reports concentration insight (e.g., top 10 = X% of total revenue)"
+      ]
+    }
+  ]
+}

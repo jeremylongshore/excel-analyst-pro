@@ -2,21 +2,39 @@
 name: excel-pivot-wizard
 description: |
   Generates pivot tables and charts from raw data using natural language commands.
-  Activates when asked to create a pivot table, summarize data by category, analyze
-  sales by region, show revenue breakdowns, or build cross-tab analyses.
   Targets business analysts and data teams working in Excel.
+  Use when asked to create a pivot table, summarize data by category, analyze sales
+  by region, show revenue breakdowns, or build cross-tab analyses.
+  Trigger with "create a pivot table", "summarize by category", "sales by region",
+  or "show breakdown by".
+  Make sure to use whenever the user needs data summarization or pivot analysis in Excel.
 allowed-tools: "Read,Write,Edit,Glob,Grep,Bash(npx:*),AskUserQuestion"
 model: inherit
-metadata:
-  author: ClaudeCodePlugins <plugins@claudecodeplugins.io>
-  version: 2.0.0
-  license: MIT
-compatibility: "Node.js 18+, @negokaz/excel-mcp-server"
+version: "2.0.0"
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+license: "Proprietary"
+compatible-with: claude-code
+tags: [pivot-table, data-analysis, excel, business-intelligence, reporting]
 ---
 
 # Excel Pivot Wizard
 
+## Table of Contents
+- [Overview](#overview) — [Prerequisites](#prerequisites) — [Instructions](#instructions) — [Output](#output) — [Examples](#examples) — [Error Handling](#error-handling) — [Resources](#resources)
+
+## Overview
+
 Creates pivot tables and visualizations from raw data using natural language commands.
+Automates the full workflow from data inspection to formatted pivot tables with charts,
+calculated fields, and conditional formatting so analysts can produce polished reports
+without manual Excel work.
+
+## Prerequisites
+
+- Node.js 18+
+- `@negokaz/excel-mcp-server` MCP server configured
+- Claude Code 1.0+
+- Source data in `.xlsx` format accessible locally
 
 ## Instructions
 
@@ -28,10 +46,7 @@ Read the source Excel file and identify:
 - Which fields are dimensions (group by) vs measures (aggregate)
 - Row count and date range
 
-If unclear, use AskUserQuestion to clarify:
-- What does each column represent?
-- What fields should be aggregated vs grouped?
-- What aggregation function (sum, average, count)?
+If unclear, use AskUserQuestion to clarify what each column represents, what fields should be aggregated vs grouped, and what aggregation function to use (sum, average, count).
 
 ### Step 2: Interpret the Request
 
@@ -39,9 +54,9 @@ Parse natural language into pivot table structure:
 
 | Request | Rows | Columns | Values |
 |---------|------|---------|--------|
-| "Show sales by region" | Region | — | Sum of Sales |
+| "Show sales by region" | Region | -- | Sum of Sales |
 | "Sales by region and month" | Region | Month | Sum of Sales |
-| "Average order value by segment" | Segment | — | Avg of Order Value |
+| "Average order value by segment" | Segment | -- | Avg of Order Value |
 | "Count orders by category and rep" | Category | Sales Rep | Count of Orders |
 
 ### Step 3: Build the Pivot Table
@@ -56,19 +71,11 @@ Use the Excel MCP server to:
 
 ### Step 4: Add Enhancements
 
-**Calculated Fields** (if applicable):
-- Profit Margin % = (Revenue - Cost) / Revenue
-- Growth % = (This Year - Last Year) / Last Year
-- % of Total = Value / Grand Total
+**Calculated Fields** (if applicable): Profit Margin %, Growth %, % of Total.
 
-**Conditional Formatting:**
-- Top 10% values: Dark green
-- Bottom 10% values: Dark red
-- Color gradient for heatmap effect
+**Conditional Formatting:** Top 10% dark green, bottom 10% dark red, color gradient for heatmap.
 
-**Sorting:**
-- Largest to smallest by default
-- Chronological for date fields
+**Sorting:** Largest to smallest by default, chronological for date fields.
 
 ### Step 5: Create Visualization
 
@@ -92,12 +99,14 @@ Choose chart type based on analysis pattern:
 
 ### Step 7: Return Results
 
-Report to the user:
-- Summary of what the pivot table shows
-- Top 3-5 key insights from the data
-- Specific numbers for standout findings
-- Suggested follow-up analyses
-- Offer to add slicers, filters, or drill-downs
+Report summary of what the pivot table shows, top 3-5 key insights, specific numbers for standout findings, suggested follow-up analyses, and offer to add slicers, filters, or drill-downs.
+
+## Output
+
+- `.xlsx` file with new pivot table sheet(s) added to the source workbook
+- Chart visualization matching the analysis pattern
+- Summary text with top insights and key numbers
+- Suggestions for follow-up analysis
 
 ## Examples
 
@@ -127,16 +136,6 @@ Output: 4x3 grid with row/column totals.
 Insight: West + Electronics = highest cell at $550K.
 ```
 
-### Top N Analysis
-
-```
-User: "Top 10 products by revenue"
-
-Output: Ranked table with revenue, orders, AOV, % of total.
-Insight: Top 10 = 62.5% of revenue (strong concentration).
-Created: Bar chart + Pareto chart.
-```
-
 ## Error Handling
 
 | Scenario | Response |
@@ -156,4 +155,4 @@ Created: Bar chart + Pareto chart.
 
 ## Resources
 
-- {baseDir}/references/REFERENCE.md - Pivot table best practices, chart selection guide
+- ${CLAUDE_SKILL_DIR}/references/REFERENCE.md - Pivot table best practices, chart selection guide
