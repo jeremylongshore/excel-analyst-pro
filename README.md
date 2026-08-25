@@ -4,6 +4,8 @@ Professional financial modeling toolkit for Claude Code with auto-invoked Skills
 
 Build DCF models, LBO analysis, variance reports, and pivot tables using natural language. No formulas to remember, no manual Excel work.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/U5S225PTME)
+
 ## Features
 
 - **DCF Modeler**: Discounted cash flow valuation models with projections, WACC, and sensitivity analysis
