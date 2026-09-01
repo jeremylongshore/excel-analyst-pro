@@ -1,0 +1,6 @@
+interface:
+  display_name: "Excel Analyst Pro"
+  short_description: "Evidence-backed DCF, LBO, and variance workbooks"
+  default_prompt: "Use $excel-analyst-pro to build a reviewable finance workbook from my supplied evidence."
+policy:
+  allow_implicit_invocation: true

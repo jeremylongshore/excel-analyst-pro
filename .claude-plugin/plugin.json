@@ -1,0 +1,23 @@
+{
+  "name": "excel-analyst-pro",
+  "version": "2.0.0",
+  "description": "Evidence-backed DCF, LBO, and variance workbook workflows with a model-neutral AgentSkills.io entrypoint",
+  "author": {
+    "name": "Intent Solutions",
+    "email": "jeremy@intentsolutions.io",
+    "url": "https://intentsolutions.io"
+  },
+  "homepage": "https://github.com/jeremylongshore/excel-analyst-pro-skill-md",
+  "repository": "https://github.com/jeremylongshore/excel-analyst-pro-skill-md",
+  "license": "Proprietary",
+  "keywords": [
+    "excel",
+    "financial-modeling",
+    "dcf",
+    "lbo",
+    "variance-analysis",
+    "agent-skills"
+  ],
+  "commands": [],
+  "skills": "./skills/"
+}

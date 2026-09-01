@@ -1,65 +1,64 @@
 # CLAUDE.md — Excel Analyst Pro
 
-## What This Repo Is
+## Repository purpose
 
-Professional financial modeling toolkit for Claude Code. Provides 4 auto-invoked Skills
-that build investment banking-grade Excel models (DCF, LBO, variance analysis, pivot tables)
-using natural language through the `@negokaz/excel-mcp-server` MCP integration.
+Excel Analyst Pro v2 provides one model-neutral AgentSkills.io entrypoint for
+evidence-backed DCF, LBO, and variance workbooks. Native pivot/chart automation is
+suspended until the packaged spreadsheet tooling can create and verify it.
 
-**Repository**: https://github.com/jeremylongshore/excel-analyst-pro
-**License**: Intent Solutions Proprietary
+Repository: https://github.com/jeremylongshore/excel-analyst-pro-skill-md
+
+License: Intent Solutions Proprietary
 
 ## Architecture
 
-```
-excel-analyst-pro/
-├── plugin.json                              # Plugin manifest
-├── skills/
-│   ├── excel-dcf-modeler/
-│   │   ├── SKILL.md                         # DCF valuation skill
-│   │   ├── evals/evals.json                 # Evaluation scenarios
-│   │   └── references/REFERENCE.md          # DCF best practices
-│   ├── excel-lbo-modeler/
-│   │   ├── SKILL.md                         # LBO modeling skill
-│   │   ├── evals/evals.json
-│   │   └── references/REFERENCE.md          # LBO best practices
-│   ├── excel-pivot-wizard/
-│   │   ├── SKILL.md                         # Pivot table skill
-│   │   ├── evals/evals.json
-│   │   └── references/REFERENCE.md          # Pivot best practices
-│   └── excel-variance-analyzer/
-│       ├── SKILL.md                         # Variance analysis skill
-│       ├── evals/evals.json
-│       └── references/REFERENCE.md          # Variance best practices
-└── slash-commands/
-    ├── build-dcf.md                         # /build-dcf shortcut
-    ├── build-lbo.md                         # /build-lbo shortcut
-    └── analyze-variance.md                  # /analyze-variance shortcut
+```text
+.claude-plugin/plugin.json                  # Claude plugin manifest
+examples/claude-mcp.json                    # opt-in pinned local Excel adapter
+skills/excel-analyst-pro/
+├── SKILL.md                                # single discovery and routing surface
+├── agents/openai.yaml                      # Codex UI metadata
+├── scripts/                                # model-neutral evidence helpers
+└── references/
+    ├── artifact-contract.md                # shared evidence/preservation contract
+    ├── dcf.md                              # DCF formulas and checks
+    ├── lbo.md                              # LBO formulas and checks
+    ├── tooling.md                          # capability and runtime boundaries
+    └── variance.md                         # variance rules and evidence language
 ```
 
-## Conventions
+## Content rules
 
-- Skills follow the AgentSkills.io spec with Intent Solutions enterprise grading
-- SKILL.md frontmatter: `author`, `version`, `license` at top level (not nested in `metadata:`)
-- Resource paths use `${CLAUDE_SKILL_DIR}/references/...`
-- Each skill has `evals/evals.json` with 3 test scenarios
-- All skills use scoped Bash: `Bash(npx:*)`
+- Keep discovery in the single `excel-analyst-pro` skill.
+- Put mode-specific logic in its matching reference and load it conditionally.
+- Do not introduce static industry defaults or unattributed market assumptions.
+- Separate observations, confirmed drivers, hypotheses, assumptions, and missing
+  evidence.
+- Do not claim native pivots, charts, conditional-formatting rules, freeze panes,
+  What-If Data Tables, or recalculation through the bundled MCP adapter.
+- Preserve the workbook artifact contract and explicit stop conditions.
+
+## Runtime
+
+The skill is model-neutral. The Claude plugin does not auto-start an MCP server.
+Its reviewed opt-in example can start `@negokaz/excel-mcp-server@0.12.0` through
+`npx`; this downloads and executes registry code and therefore requires explicit
+operator consent. Its published README requires Node.js 20 or later, while its
+`package.json` does not enforce an `engines` range; deployment must check the
+documented requirement explicitly. The packaged
+inventory, CSV reconciliation, and verification helpers require Python 3.10 or
+later and only the standard library. Supported and unsupported surfaces are
+documented in
+`skills/excel-analyst-pro/references/tooling.md`.
 
 ## Validation
 
-Run the enterprise grader on any SKILL.md:
-```bash
-python3 /home/jeremy/.claude/skills/skill-creator/scripts/validate-skill.py --grade skills/<name>/SKILL.md
-```
+Validate the skill with the repository marketplace validator and validate
+`.claude-plugin/plugin.json` plus the opt-in MCP example before release. Tests and scripts are
+owned by their designated implementation lane; do not overwrite them during
+content-only changes.
 
-## MCP Server
+## Task tracking
 
-All skills depend on `@negokaz/excel-mcp-server`:
-```bash
-npx --yes @negokaz/excel-mcp-server
-```
-Configured in `plugin.json` with `EXCEL_MCP_PAGING_CELLS_LIMIT=4000`.
-
-## Task Tracking (Beads / bd)
-
-Use `bd` for all tasks. Start: `bd ready`. Finish: `bd close <id> --reason "evidence"`. Sync: `bd sync`.
+Use `bd` for repository task tracking unless the active task explicitly prohibits
+Beads operations.
