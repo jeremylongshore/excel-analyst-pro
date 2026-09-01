@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-08-31
+
+### Added
+
+- One model-neutral `excel-analyst-pro` AgentSkills.io entrypoint
+- Evidence, recalculation, workbook-feature preservation, and tool-capability contracts
+- Current Claude plugin manifest and Codex UI metadata
+- Explicitly opt-in, pinned `@negokaz/excel-mcp-server@0.12.0` example
+
+### Changed
+
+- Consolidated DCF, LBO, and variance guidance into conditionally loaded references
+- Replaced static industry defaults with supplied, sourced, or user-approved assumptions
+- Required evidence-backed variance drivers and explicit verification receipts
+- Aligned the optional adapter runtime boundary to its published Node.js 20+
+  requirement and documented that package metadata does not enforce it
+
+### Removed
+
+- Unsupported native pivot, chart, slicer, conditional-formatting, freeze-pane,
+  What-If Data Table, and recalculation claims
+- Duplicated v1 skill entrypoints and slash-command workflows
+- Causal invention and unsupported example outputs
+
 ## [1.1.0] - 2026-03-18
 
 ### Added
