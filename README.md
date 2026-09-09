@@ -51,11 +51,11 @@ installer; the workflow itself does not call a model API.
 
 The Claude plugin does **not** start or download an MCP server automatically. An
 opt-in example for `@negokaz/excel-mcp-server@0.12.0` is provided at
-`examples/claude-mcp.json`. Review it and explicitly add it to your own Claude
-configuration only if you consent to `npx --yes` downloading and executing that
-pinned package. For stronger supply-chain control, install the audited package
-into a locked local tool directory and replace `npx --yes` with its fixed local
-executable path.
+`examples/claude-mcp.json`. It is a complete `mcpServers` configuration object;
+review it and explicitly merge it into your own Claude configuration only if you
+consent to `npx --yes` downloading and executing that pinned package. For
+stronger supply-chain control, install the audited package into a locked local
+tool directory and replace `npx --yes` with its fixed local executable path.
 
 The adapter's published README requires Node.js 20 or later with npm/npx. Its
 `package.json` does not enforce that requirement with an `engines` field, so

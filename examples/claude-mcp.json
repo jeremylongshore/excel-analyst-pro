@@ -1,9 +1,11 @@
 {
-  "excel": {
-    "command": "npx",
-    "args": ["--yes", "@negokaz/excel-mcp-server@0.12.0"],
-    "env": {
-      "EXCEL_MCP_PAGING_CELLS_LIMIT": "4000"
+  "mcpServers": {
+    "excel": {
+      "command": "npx",
+      "args": ["--yes", "@negokaz/excel-mcp-server@0.12.0"],
+      "env": {
+        "EXCEL_MCP_PAGING_CELLS_LIMIT": "4000"
+      }
     }
   }
 }
