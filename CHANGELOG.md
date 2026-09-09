@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Wrap the opt-in Excel adapter example in a valid top-level `mcpServers`
+  object so operators can merge it directly into Claude configuration.
+
+### Changed
+
+- Declare inherited-model, high-effort execution metadata for the consolidated
+  finance-workbook skill.
+
 ## [2.0.0] - 2026-08-31
 
 ### Added

@@ -14,6 +14,8 @@ author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 license: "Proprietary"
 compatibility: "Model-neutral AgentSkills.io workflow. Creating or editing .xlsx files requires a local spreadsheet tool that can preserve the workbook features in scope; the opt-in MCP example documents Node.js 20+ with npm/npx, although its package metadata does not enforce an engines range."
 tags: [excel, financial-modeling, dcf, lbo, variance-analysis]
+model: inherit
+effort: high
 ---
 
 # Excel Analyst Pro
